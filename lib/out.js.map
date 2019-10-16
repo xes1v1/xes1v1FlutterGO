@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "engine": "v2",
+  "file": "out.js",
+  "sourceRoot": "",
+  "sources": ["org-dartlang-sdk:///sdk/lib/core/print.dart","org-dartlang-sdk:///sdk/lib/_internal/js_runtime/lib/internal_patch.dart","org-dartlang-sdk:///sdk/lib/_internal/js_runtime/lib/js_primitives.dart","minix_test.dart"],
+  "names": ["print","printString","main","Object","String","throwCyclicInit","closureFromTearOff","int","double","num","bool","Null","List","toString","printToConsole","eat","thinking"],
+  "mappings": "A;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;WAOKA;MC8BHA;IDvBFA,C;;;;;;;iBEGKC;MACHA;;QAGEA,MAyBJA;;;;QAlBIA,MAkBJA;;MAdEA;QACEA,MAaJA;MATEA;;QAEEA,MAOJA;;;K;;;UC9CKC;MA0CDA;MAjBAA;IArBJA,C",
+  "x_org_dartlang_dart2js": {
+    "minified_names": {
+      "global": "print,0,printString,1,Object,3,String,4,main,2,throwCyclicInit,5,closureFromTearOff,6,int,7,double,8,num,9,bool,10,Null,11,List,12",
+      "instance": "toString$0,13"
+    },
+    "frames": "ovTAUIc2B;wlBGRFC0B;AACACyB;"
+  }
+}
