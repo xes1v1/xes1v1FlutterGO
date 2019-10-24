@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/classdemo/widgets/02CustomizeWidget.dart';
 
 void main() => runApp(DogApp());
 
@@ -12,15 +13,13 @@ class DogApp extends StatelessWidget {
           title: Text("text"),
         ),
         body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            DecoratedBox(
-              decoration: BoxDecoration(color: Colors.lightBlueAccent),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("aaa111"),
-              ),
-            )
-          ]),
+           child: Column(
+             mainAxisSize: MainAxisSize.max,
+             children: [
+               DogWidget(),
+             ]
+           ),
+//          child: DogWidget(),
         ),
       ),
     );
