@@ -10,6 +10,88 @@ import 'package:flutter/widgets.dart';
 /// 则是RenderObjectWidget， 而其他widget都可以理解为视图的声明或者其他的功能，
 /// 最终还是要生成RenderObjectWidget利用RenderObject来进行渲染
 ///
+/// 通过 项目目录中
+/// 我们可以看到
+///
+/// 通过启动流程中的 attachRootWidget
+/// 的调用链 learnfile/widget-element产生链.jpg
+///
+/// ```
+///  void runApp(Widget app) {
+///     WidgetsFlutterBinding.ensureInitialized()
+///    ..attachRootWidget(app)
+///    ..scheduleWarmUpFrame();
+///  }
+/// ```
+///
+///  ------ 执行链讲解 ------
+///  [root] - RenderObjectToWidgetAdapter     [root] - RootRenderObjectElement(RenderObjectToWidgetElement)
+///  通过 RenderObjectToWidgetAdapter.attachToRenderTree 与 RootRenderObjectElement
+///  👇 （高能：此处是 RenderObjectToWidgetElement mount 的实现）
+///  RenderObjectToWidgetElement.mount()  绘制万物的起源
+///  👇
+///  RenderObjectToWidgetElement._rebuild()  万物创建的起源
+///  👇
+///  _child = updateChild(_child, widget.child, _rootChildSlot);
+///     👁                  👁          👁            👁
+/// 【 DogApp              null       DogApp         常量值 】     ----  实际运行时内容
+///  👇
+///  RenderObjectToWidgetElement.inflateWidget( newWidget )  开始创建了
+///                                               👁
+///                                              DogApp
+///  👇
+///   final Element newChild = newWidget.createElement();
+///                   👁
+///                   DogApp
+///   👇
+///   newChild.mount(this,                           newSlot);
+///                    👁                                 👁
+///                  RenderObjectToWidgetElement      _rootChildSlot
+///    👇 （高能, 开始是 ComponentElement的 mount 这里之后的循环）
+///    ComponentElement.mount(Element parent, dynamic newSlot)
+///    👇
+///    ComponentElement._firstBuild() -> Element.rebuild()
+///    👇
+///    ComponentElement.performRebuild()
+///               built = build();
+///                👁
+///               MaterialApp
+///    👇
+///    Element.updateChild(Element child, Widget newWidget, dynamic newSlot)
+///       👁                       👁           👁              👁
+///       DogApp                 null        MaterialApp      _rootChildSlot
+///
+///    👇
+///    Element.inflateWidget(Widget newWidget, dynamic newSlot)
+///     👁                           👁              👁
+///      DogApp                    MaterialApp    _rootChildSlot
+///
+///    final Element newChild = newWidget.createElement();  MaterialApp是StatefulWidget所以返回的element是StatefulElement
+///                  newChild.mount(this, newSlot);
+///                    👁
+///                  StateFulElement的mount
+///
+///    👇 （高能：此处实际上是上一步的 newChild.mount 也就是 StatefulElement ）
+///     StateFulElement.mount(Element parent, dynamic newSlot)
+///                               👁             👁
+///                               DogApp         _rootChildSlot
+///
+///
+///    所有总结一下，
+///    RenderObjectToWidgetElement的 _rebuild 通过 构造方法传入 root widget 然后添加到 rootElement中
+///    之后的
+///    内部的element则通过
+///    ComponentElement.mount 来把build() 中的widget 所生成的 element 添加到 element关系中
+///
+///    两处高能的部分，就是一致遍历通过 mount--> _firstBuild() ---> inflateWidget() -->  mount()
+///    通过 RenderObjectToWidgetElement ，ComponentElement 的不同的 mount实现将
+///    root 与 整个 element 创建了出来。
+///
+///
+///    PS: reBuild 会有一点不同。 这里只是创建过程。
+///
+///
+///
 
 class DogWidget extends RenderObjectWidget {
 
@@ -103,8 +185,6 @@ class DogTitleRenderObject extends RenderProxyBox {
 }
 
 class DogRenderObject extends RenderProxyBox {
-
-
 
   @override
   void paint(PaintingContext context, Offset offset) {
