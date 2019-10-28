@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/classdemo/widgets/02CustomizeWidget.dart';
+import 'package:flutter_app/classdemo/widgets/three_tree/01CustomizeWidget.dart';
 
 void main() => runApp(DogApp());
 
 class DogApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+//    return DogWidget();
     return MaterialApp(
       title: "dog demo",
       home: Scaffold(
@@ -13,15 +14,17 @@ class DogApp extends StatelessWidget {
           title: Text("text"),
         ),
         body: Center(
-           child: Column(
-             mainAxisSize: MainAxisSize.max,
-             children: [
-               DogWidget(),
-             ]
-           ),
-//          child: DogWidget(),
+//           child: Align(
+//             child: Text("测试")
+          child: DogWidget(),
+//             mainAxisSize: MainAxisSize.max,
+//             children: [
+//               DogWidget(),
+//             ]
         ),
+//          child: DogWidget(),
       ),
+//      ),
     );
   }
 }
