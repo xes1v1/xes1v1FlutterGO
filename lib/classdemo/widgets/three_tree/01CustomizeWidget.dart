@@ -5,6 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
+
+/// ================================================
+/// ================================================
+///
+/// widget-element关键流程图
+/// https://www.processon.com/view/link/5da988a3e4b0e43392eca896
+///
+/// ================================================
+/// ================================================
+
+
+
+
+
+
 ///
 /// Flutter 中只有RenderObject是负责绘制的，而与其对应的真正具有绘制能力的widget
 /// 则是RenderObjectWidget， 而其他widget都可以理解为视图的声明或者其他的功能，
