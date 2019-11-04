@@ -7,7 +7,10 @@ class Animal {
   }
 }
 
-class Bird  {
+abstract class Bird  {
+  void eat() {
+    print("bird eat");
+  }
   void fly() {
     print("bird fly");
   }
@@ -17,16 +20,14 @@ mixin Fish on Animal {
   void swim() {
     print("Fish swim");
   }
+  void eat() {
+    print("fish eat");
+  }
 }
 
-class Swan extends Animal with Bird , Fish {}
+class Swan extends Animal with Bird , Fish { }
 
 void main() {
   Swan swan = Swan();
-  swan.fly();
-  swan.swim();
-
-  print(swan is Bird);
-  print(swan is Fish);
-  print(swan is Swan);
+  swan.eat();
 }
