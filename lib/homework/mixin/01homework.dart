@@ -22,7 +22,10 @@ mixin C on Base {
   }
 }
 
-class PrintSay extends Base with A, B, C {}
+// todo 改造它让他能够成为 main 方法满足输出要求的类
+class PrintSay {
+  void say() {}
+}
 
 void main() {
   //todo 修改以上代码，输出 c b a 的顺序
