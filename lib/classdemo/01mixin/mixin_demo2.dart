@@ -1,16 +1,12 @@
 import 'package:flutter_app/classdemo/01mixin/01mixin_demo.dart';
 
-class Animal {
-
+abstract class Animal {
   void eat() {
     print("animal eat");
   }
 }
 
-abstract class Bird  {
-  void eat() {
-    print("bird eat");
-  }
+class Bird  {
   void fly() {
     print("bird fly");
   }
@@ -20,12 +16,18 @@ mixin Fish on Animal {
   void swim() {
     print("Fish swim");
   }
+}
+
+mixin SpecialEat on Animal {
+  @override
   void eat() {
-    print("fish eat");
+    super.eat();
+
   }
 }
 
-class Swan extends Animal with Bird , Fish { }
+
+class Swan extends Animal with Bird , Fish, SpecialEat { }
 
 void main() {
   Swan swan = Swan();
