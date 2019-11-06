@@ -22,7 +22,7 @@ mixin C on Base {
   }
 }
 
-// todo 改造你认为需要改造的类 满足 main 方法输出的要求
+// todo 改造你 认为需要改造的类 满足 main 方法输出的要求
 class PrintSay {
   void say() {}
 }
