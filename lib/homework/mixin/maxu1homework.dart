@@ -1,3 +1,5 @@
+//maxu1 create
+
 class Base {
   void say() {
     print("a");
@@ -25,8 +27,10 @@ mixin C on Base {
 }
 
 // todo 改造你认为需要改造的类 满足 main 方法输出的要求
-class PrintSay extends Base with A,B,C  {
-
+class PrintSay extends Base with A, B, C{
+  void say() {
+    super.say();
+  }
 }
 
 void main() {
