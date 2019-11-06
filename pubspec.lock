@@ -80,7 +80,11 @@ packages:
       name: quiver
       url: "https://pub.flutter-io.cn"
     source: hosted
+<<<<<<< HEAD
     version: "2.0.3"
+=======
+    version: "2.0.4"
+>>>>>>> e7d0b8fad053f058a9572dc1996f4911d66effd2
   sky_engine:
     dependency: transitive
     description: flutter
