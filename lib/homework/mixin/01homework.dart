@@ -22,12 +22,12 @@ mixin C on Base {
   }
 }
 
-// todo 改造它让他能够成为 main 方法满足输出要求的类
-class PrintSay {
+// todo 改造你认为需要改造的类 满足 main 方法输出的要求
+class PrintSay  {
   void say() {}
 }
 
 void main() {
-  //todo 修改以上代码，输出 c b a 的顺序
+  // todo 修改以上代码，输出 c b a 的顺序
   PrintSay().say();
 }

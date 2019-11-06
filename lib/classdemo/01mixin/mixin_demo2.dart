@@ -13,21 +13,22 @@ class Bird  {
 }
 
 mixin Fish on Animal {
+  @override
+  void eat() {
+    print("Fish");
+  }
   void swim() {
     print("Fish swim");
   }
 }
 
-mixin SpecialEat on Animal {
+
+class Swan extends Animal with Bird , Fish {
   @override
   void eat() {
     super.eat();
-
   }
 }
-
-
-class Swan extends Animal with Bird , Fish, SpecialEat { }
 
 void main() {
   Swan swan = Swan();
