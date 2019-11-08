@@ -100,6 +100,16 @@ import 'package:flutter/widgets.dart';
 ///
 ///    PS: reBuild 会有一点不同。 这里只是创建过程。
 ///
+///     WidgetsFlutterBinding.ensureInitialized()
+///    ..attachRootWidget(app)  // widgetsBinging
+///    ..scheduleWarmUpFrame(); // ScheduleBinding
+///
+///         BuildOwner       PipelineOwner
+///            |  初始化调整      |  纯渲染   -----  {rendersStack, repaintBoundary, PhysicalModelLayer}
+///    widget - element - renderobject（创建绘制）
+///    遗留问题：
+///    1. 正常创建绘制过程中， 子超过了父的约束父会做什么？
+///    2. 绘制完毕后， setstate() 时如何来进行调整的。
 ///
 ///
 
