@@ -112,6 +112,37 @@ import 'package:flutter/widgets.dart';
 ///    2. 绘制完毕后， setstate() 时如何来进行调整的。
 ///
 ///
+///
+///
+///   1. 正常创建绘制过程中， 子超过了父的约束父会做什么？
+///
+///   在renderObject的 layout()阶段，根据  sizedByParent 这属性去判断是否需要重新计算size，
+///   if (sizedByParent) {
+///     performResize();
+///   }
+///   sizedByParent 是一个get获取的，默认为false，在需要的子类直接会返回true，也就是说flutter定义了不同的子类的职能
+///   当特定类型子类的sizedByParent返回了true，它就会去重新计算size，而不是根据子类有没有超出父类的约束去判断需不需要
+///   重新计算。在子类的performResize()里面会进行size的计算。
+///
+///   关于layout的遍历，在整个layout过程中，只会遍历一次。但是在遍历的过程中，自上(parent)而下(child)的传递约束信息(constraints)，自下(child)而上(parent)的传递几何信息(size)。
+///   layout阶段会调取各自子类的performLayout()去计算自身的size
+///
+///
+///   2. 绘制完毕后， setState() 时如何来进行调整的。
+///
+///   在statefulWidget调用setState()时，会调用markNeedsBuild()，在markNeedsBuild()里面把当前的element设置为dirty，
+///   然后调用buildOwner的scheduleBuildFor()，在这里把当前的element添加到_dirtyElements里面去，当下一个Vsync信号到来时，调用WidgetsBinding的drawFrame()
+///   在WidgetsBinding的drawFrame()的 buildOwner.buildScope()里面调取 Element的rebuild  然后调取componentElement的performRebuild()，然后在走build --> updateChild
+///   完了之后进入RendererBinding的drawFrame()然后依次走重新布局的阶段，大致的流程如下
+///
+///   【StatefulWidget】setState() ---> 【Element】markNeedsBuild() element.dirty = true ---> 【BuildOwner】scheduleBuildFor(this) _dirtyElements.add(element)
+///   ---> 【WidgetsBinding】drawFrame() ---> 【BuildOwner】buildScope() ---> 【Element】rebuild() ---> 【ComponentElement】performRebuild()
+///   ---> build() ---> updateChild() ---> 【RendererBinding】drawFrame() ---> pipelineOwner.flushLayout() ....
+///
+///
+///
+///
+///
 
 class DogWidget extends RenderObjectWidget {
 
