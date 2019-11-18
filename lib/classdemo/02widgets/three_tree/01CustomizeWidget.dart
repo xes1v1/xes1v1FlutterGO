@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-
 /// ================================================
 /// ================================================
 ///
@@ -146,88 +145,63 @@ import 'package:flutter/widgets.dart';
 
 class DogWidget extends RenderObjectWidget {
 
-
-  Widget title = null; /// 绘制
-  Widget context = null; /// 绘制
+  final Color color ;
+  final double width;
+  final double height;
 
   @override
   RenderObjectElement createElement() {
-
-    TitleElement titleElement = title?.createElement();
-    Element contextElement = this.context?.createElement();
-
-    return DogElement(this, child: [
-      titleElement,
-      contextElement
-    ]);
+    return DogElement(this);
   }
 
   @override
   RenderObject createRenderObject(BuildContext context) {
     /// 创建容器里需要的绘制内容
-    return DogRenderObject();
+    return DogRenderObject(this.color, this.width, this.height);
   }
+
+  DogWidget({this.color = Colors.amber, this.width = 10, this.height = 10});
+
 }
 
 class TitleElement extends RenderObjectElement {
-
   String title;
 
-  TitleElement(DogWidget widget , this.title) : super(widget) ;
+  TitleElement(DogWidget widget, this.title) : super(widget);
 
   @override
-  void removeChildRenderObject(RenderObject child) {
-
-  }
+  void removeChildRenderObject(RenderObject child) {}
 
   @override
-  void moveChildRenderObject(RenderObject child, dynamic slot) {
-
-  }
+  void moveChildRenderObject(RenderObject child, dynamic slot) {}
 
   @override
-  void insertChildRenderObject(RenderObject child, dynamic slot) {
-
-  }
+  void insertChildRenderObject(RenderObject child, dynamic slot) {}
 
   @override
-  void forgetChild(Element child) {
-
-  }
-
+  void forgetChild(Element child) {}
 }
 
-
 class DogElement extends RenderObjectElement {
-
   List<Element> child;
 
   DogElement(DogWidget widget, {this.child}) : super(widget);
 
   @override
-  void removeChildRenderObject(RenderObject child) {
-
-  }
+  void removeChildRenderObject(RenderObject child) {}
 
   @override
-  void moveChildRenderObject(RenderObject child, dynamic slot) {
-
-  }
+  void moveChildRenderObject(RenderObject child, dynamic slot) {}
 
   @override
-  void insertChildRenderObject(RenderObject child, dynamic slot) {
-
-  }
+  void insertChildRenderObject(RenderObject child, dynamic slot) {}
 
   @override
-  void forgetChild(Element child) {
-
-  }
+  void forgetChild(Element child) {}
 }
 
 /// PaintingContext contxt ?
 class DogTitleRenderObject extends RenderProxyBox {
-
   @override
   void paint(PaintingContext context, Offset offset) {
     // TODO: implement paint
@@ -237,21 +211,22 @@ class DogTitleRenderObject extends RenderProxyBox {
 
 class DogRenderObject extends RenderProxyBox {
 
+  Color color;
+  double width;
+  double height;
+
   @override
   void paint(PaintingContext context, Offset offset) {
     super.paint(context, offset);
 
-    var paint = Paint();
-    paint.color = Colors.lightBlueAccent;
-    var size = Size(100, 100);
+    var paint =  Paint();
+    paint.color = color;
+    var size = Size(width, height);
     context.canvas.drawRect(offset & size, paint);
 //    context.canvas.drawRect(Rect.fromLTWH(100, 100, 100, 100), paint);
 //    context.canvas.drawRect(rect, paint)
 //    context.canvas.drawRect(offset, paint);
   }
 
-  DogRenderObject({
-    Offset size,
-  });
-
+  DogRenderObject(this.color, this.width, this.height);
 }
