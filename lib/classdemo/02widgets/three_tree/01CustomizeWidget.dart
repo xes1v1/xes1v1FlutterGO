@@ -160,7 +160,7 @@ class DogWidget extends RenderObjectWidget {
     return DogRenderObject(this.color, this.width, this.height);
   }
 
-  DogWidget({this.color = Colors.amber, this.width = 10, this.height = 10});
+  DogWidget({this.color = Colors.amber, this.width = 10, this.height = 10, key}):super(key: key);
 
 }
 

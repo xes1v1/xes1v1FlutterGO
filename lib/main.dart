@@ -30,5 +30,13 @@ class _DogAppState extends State<DogApp> with SingleTickerProviderStateMixin {
 //              width: animationSize.value.width,
 //              height: animationSize.value.height)),
     );
+//    return new Center(
+//      child: Container(
+//          child: DogWidget(color: Colors.lightBlue, width: 100, height: 100,)),
+////    DogWidget(
+////              color: animationColor.value,
+////              width: animationSize.value.width,
+////              height: animationSize.value.height)),
+//    );
   }
 }
