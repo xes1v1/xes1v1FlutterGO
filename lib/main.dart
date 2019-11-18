@@ -10,32 +10,13 @@ class DogApp extends StatefulWidget {
 }
 
 class _DogAppState extends State<DogApp> with SingleTickerProviderStateMixin {
-  Animation<Size> animationSize;
-  Animation<Color> animationColor;
-  AnimationController controller;
-
   @override
   void initState() {
     super.initState();
-
-    controller = new AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this);
-    animationSize =
-        SizeTween(begin: Size(10, 10), end: Size(100, 100)).animate(controller)
-          ..addListener(() {
-            setState(() {});
-          });
-    animationColor = ColorTween(begin: Colors.purple, end: Colors.lightBlue)
-        .animate(controller);
-    animationColor.addListener(() {
-      setState(() {});
-    });
-    controller.forward();
   }
 
   @override
   void dispose() {
-    controller.dispose();
     super.dispose();
   }
 
@@ -43,10 +24,7 @@ class _DogAppState extends State<DogApp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return new Center(
       child: Container(
-          width: animationSize.value.width,
-          height: animationSize.value.height,
-          color: animationColor.value,
-          child: FlutterLogo()),
+          child: DogWidget(color: Colors.lightBlue, width: 100, height: 100,)),
 //    DogWidget(
 //              color: animationColor.value,
 //              width: animationSize.value.width,
