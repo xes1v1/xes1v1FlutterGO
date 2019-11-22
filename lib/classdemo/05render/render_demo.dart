@@ -56,6 +56,55 @@ import 'dart:ui';
 ///     绘制了 Container 的内容 _painter.paint(context.canvas, offset, filledConfiguration);
 ///     然后才是 DogWidget 的内容
 ///
+///
+///
+///
+/// 在flutter中几乎所有的绘制都会在 renderObject 以 layer 的方式进行绘制
+/// [RenderObject] bool get isRepaintBoundary => false;
+///
+/// 在isRepaintBoundary = true 的RenderObject 子类中，在重新绘制的时候，系统会自动
+/// 创建OffsetLayer ，然后通过 [PaintingContext] appendLayer() addLayer() 等方法来来进行
+/// 追加到 [RenderView] _updateMatricesAndCreateNewRootLayer  方法所产生的layer中，此时创建的是TransformLayer
+/// 当屏幕发生变化是，[RenderView] configuration 方法触发会 replaceRootLayer 此时会生成 OffsetLayer
+///
+///
+/// RenderObject  isRepaintBoundary = true 的 RenderObject 只存在几类
+///  |
+///   [RenderViewportBase]
+///  |
+///   [RenderRepaintBoundary]  ===>  [RepaintBoundary] widget
+///  |
+///   [RenderAndroidView]
+///  |
+///   [RenderFlow]   ===>  [Flow]  widget
+///  |
+///   [RenderUiKitView]  ====> []
+///  |
+///   [TextureBox]
+///  |
+///   [PlatformViewRenderBox]
+///  |
+///   [RenderView]  ====>  [RenderObjectToWidgetAdapter] widget
+///  |
+///   [RenderListWheelViewport]  ===> [ListWheelViewport] widget
+///
+///   isRepaintBoundary = true 时， 将首先停掉上一个layer 并且生成 P
+///
+///   细节详见 [PaintingContext] paintChild()  关键内容
+///  if (child.isRepaintBoundary) {
+///      stopRecordingIfNeeded();  // 完成之前图层渲染
+///      _compositeChild(child, offset); // 只渲染自己图层
+///    } else {
+///      child._paintWithContext(this, offset);
+///    }
+///
+///   [RenderObject] 中的 markNeedsPaint ，会一直向 parent 递归，找到 isRepaintBoundary 的RenderObject
+///   加入到渲染列表中。
+///   所以flutter的框架中，渲染只会渲染 layer ，如果不存在上述 isRepaintBoundary = true 的 RenderObject
+///   则会将所有元素绘制到  RenderView 也就是我们所说的 rootView 所创建的 Layer 上。
+///
+///   目前还有的遗留问题： engine 如何缓存 Layer 达到 layer 的重排，缓存优化
+///
 
 //void main() => runApp(DogApp());
 //
@@ -147,20 +196,6 @@ class _DogAppState extends State<DogApp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
-//    controller = new AnimationController(
-//        duration: const Duration(milliseconds: 2000), vsync: this);
-//    animationSize =
-//        SizeTween(begin: Size(10, 10), end: Size(40, 40)).animate(controller)
-//          ..addListener(() {
-//            setState(() {});
-//          });
-//    animationColor = ColorTween(begin: Colors.purple, end: Colors.lightBlue)
-//        .animate(controller);
-//    animationColor.addListener(() {
-//      setState(() {});
-//    });
-//    controller.forward();
   }
 
   @override
@@ -181,10 +216,6 @@ class _DogAppState extends State<DogApp> with SingleTickerProviderStateMixin {
             width: 100,
             height: 100,
           )),
-//    DogWidget(
-//              color: animationColor.value,
-//              width: animationSize.value.width,
-//              height: animationSize.value.height)),
     );
   }
 }
