@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'classdemo/02widgets/three_tree/01CustomizeWidget.dart';
+import 'package:flutter_app/classdemo/02widgets/gesture/GestureWidget.dart';
 
 void main() => runApp(DogApp());
 
@@ -22,10 +21,13 @@ class _DogAppState extends State<DogApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return new Center(
-      child: Container(
-          child: DogWidget(color: Colors.lightBlue, width: 100, height: 100,)),
-//
+    return GestureWidget(
+      color: Colors.lightBlue,
+      width: 100,
+      height: 100,
+      onTap: () {
+        print("haah");
+      },
     );
   }
 }
