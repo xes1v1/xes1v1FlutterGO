@@ -21,12 +21,52 @@ class _DogAppState extends State<DogApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return GestureWidget(
-      color: Colors.lightBlue,
-      width: 100,
-      height: 100,
+    return createWidget1();
+  }
+
+  Widget createWidget2() {
+    return GestureDetector(
+      child: Container(
+        width: 300,
+        height: 300,
+        color: Colors.amber,
+        child: GestureDetector(
+          child: Center(
+            child: Container(
+              width: 100,
+              height: 100,
+              color: Colors.blue,
+            ),
+          ),
+          onTap: () {
+            print("内部的.......");
+          },
+        ),
+      ),
       onTap: () {
-        print("haah");
+        print("外部的");
+      },
+    );
+  }
+
+  Widget createWidget1() {
+    return GestureDetector(
+      child: Container(
+        width: 300,
+        height: 300,
+        color: Colors.amber,
+        child: Center(
+            child: GestureWidget(
+          color: Colors.lightBlue,
+          width: 100,
+          height: 100,
+          onTap: () {
+            print("内部的");
+          },
+        )),
+      ),
+      onTap: () {
+        print("外部的");
       },
     );
   }
