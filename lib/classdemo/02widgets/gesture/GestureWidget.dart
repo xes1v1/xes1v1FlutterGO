@@ -85,7 +85,7 @@ class DogTitleRenderObject extends RenderProxyBox {
 /// 3、_flushPointerEventQueue,遍历拿出移除存储在_pendingPointerEvents队列内的事件，执行_handlePointerEvent
 /// 方法对事件做处理
 /// 4、在_handlePointerEvent方法里，判断事件为按下时，执行hitTest方法，hitTest会将符合renderBinding内的hitTest
-/// 开始一直执行child的hitTest,将所有符合hitTest的renderBox加到hitTestResult内，最后将Gestureinding添加到hitTestResult
+/// 开始一直执行child的hitTest,将所有符合hitTest的renderBox加到hitTestResult内，最后将GestureBinding添加到hitTestResult
 /// 内，并将hitTestResult给到_hitTests map,在抬起时会将事件对应的hitTestResult从——hitTests移除
 /// 5、dispatchEvent 遍历hitTestResult.path，执行对应target（一般是RenderBox，或者GestureBinding）的handleEvent方法，
 /// 至此我们在renderBox内的重写的handleEvent方法被执行。
