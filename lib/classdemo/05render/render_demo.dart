@@ -65,7 +65,7 @@ import 'dart:ui';
 /// 在isRepaintBoundary = true 的RenderObject 子类中，在重新绘制的时候，系统会自动
 /// 创建OffsetLayer ，然后通过 [PaintingContext] appendLayer() addLayer() 等方法来来进行
 /// 追加到 [RenderView] _updateMatricesAndCreateNewRootLayer  方法所产生的layer中，此时创建的是TransformLayer
-/// 当屏幕发生变化是，[RenderView] configuration 方法触发会 replaceRootLayer 此时会生成 OffsetLayer
+/// 当屏幕发生变化是，[RenderView] configuration 方法触发会 replaceRootLayer
 ///
 ///
 /// RenderObject  isRepaintBoundary = true 的 RenderObject 只存在几类

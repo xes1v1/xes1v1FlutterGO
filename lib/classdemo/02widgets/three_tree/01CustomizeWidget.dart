@@ -170,7 +170,9 @@ class TitleElement extends RenderObjectElement {
   TitleElement(DogWidget widget, this.title) : super(widget);
 
   @override
-  void removeChildRenderObject(RenderObject child) {}
+  void removeChildRenderObject(RenderObject child) {
+
+  }
 
   @override
   void moveChildRenderObject(RenderObject child, dynamic slot) {}
@@ -224,6 +226,8 @@ class DogRenderObject extends RenderProxyBox {
     var size = Size(width, height);
     context.canvas.drawRect(offset & size, paint);
   }
+
+
 
   DogRenderObject(this.color, this.width, this.height);
 }
