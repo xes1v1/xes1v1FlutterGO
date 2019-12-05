@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/classdemo/02widgets/gesture/GestureWidget.dart';
 
+import 'homework/widget_element_renderObj/WSThreeTreeWidget.dart';
+
 void main() => runApp(DogApp());
 
 class DogApp extends StatefulWidget {
@@ -21,7 +23,16 @@ class _DogAppState extends State<DogApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return createWidget1();
+//    return createWidget1();
+  return Container(
+    child: Center(
+      child: WSCatWidget(
+        color: Colors.red,
+        width: 100,
+        height: 100,
+      ),
+    ),
+  );
   }
 
   Widget createWidget2() {
