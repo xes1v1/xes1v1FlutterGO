@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/classdemo/02widgets/gesture/GestureWidget.dart';
-
 import 'homework/widget_element_renderObj/WSThreeTreeWidget.dart';
+import 'classdemo/02widgets/gesture/GestureWidget.dart';
+import 'homework/widget_element_renderObj/wangqing_three_tree.dart';
 
-void main() => runApp(DogApp());
+void main() => runApp(WQWidgetNew());
 
 class DogApp extends StatefulWidget {
   @override
@@ -79,6 +79,27 @@ class _DogAppState extends State<DogApp> with SingleTickerProviderStateMixin {
       onTap: () {
         print("外部的");
       },
+    );
+  }
+
+  Widget createWQ() {
+    return Icon(Icons.ac_unit);
+  }
+}
+
+class WQWidgetNew extends StatefulWidget {
+  @override
+  _WQWidgetNewState createState() => _WQWidgetNewState();
+}
+
+class _WQWidgetNewState extends State<WQWidgetNew> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: WQWidget(),
+      ),
     );
   }
 }
