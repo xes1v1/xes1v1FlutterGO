@@ -17,7 +17,7 @@ class WQWidget extends RenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return WQRenderObject(Colors.red, 50);
+    return WQRenderObject(Colors.red, 80);
   }
 }
 
