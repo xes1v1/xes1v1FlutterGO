@@ -73,3 +73,20 @@ class WQRenderObject extends RenderProxyBox {
 
   WQRenderObject(this.color, this.radius);
 }
+
+class WQWidgetNew extends StatefulWidget {
+  @override
+  _WQWidgetNewState createState() => _WQWidgetNewState();
+}
+
+class _WQWidgetNewState extends State<WQWidgetNew> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: WQWidget(),
+      ),
+    );
+  }
+}
