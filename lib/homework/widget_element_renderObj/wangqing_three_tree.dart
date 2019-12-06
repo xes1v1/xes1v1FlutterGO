@@ -5,6 +5,8 @@
  * Time: 17:41
  * target: 自定义 RenderObject
  */
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -49,21 +51,38 @@ class WQRenderObject extends RenderProxyBox {
 
     var paint = Paint();
     paint.color = color;
+    paint.style = PaintingStyle.fill;
+
+    var size = Size(100, 100);
 
 //    context.canvas.drawCircle(offset, radius, paint);
-//
 //    context.canvas.drawLine(Offset(200, 200), Offset(100, 300), paint);
-//    context.canvas.drawLine(Offset(200, 200), Offset(300, 300), paint);
-//    context.canvas.drawLine(Offset(250, 400), Offset(300, 300), paint);
-//    context.canvas.drawLine(Offset(150, 400), Offset(250, 400), paint);
-//    context.canvas.drawLine(Offset(100, 300), Offset(150, 400), paint);
+//    drawPentagram(context, paint);
+//    drawRect(context, offset, size, paint);
 
-//    var size = Size(100, 100);
-//    var size = Size(width, height);
-//    context.canvas.drawRect(offset & size, paint);
+    List list = [
+      [Offset(200, 400), Offset(100, 400), Offset(200, 500)],
+      [Offset(100, 300), Offset(300, 300), Offset(250, 400)],
+    ];
 
-//    context.canvas.drawLine(Offset(200, 200), Offset(100, 300), paint);
+    for (int i = 0; i < list.length; i++) {
+      drawTriangle(context, list[i], paint);
+    }
+  }
 
+  void drawTriangle(PaintingContext context, List list, Paint paint) {
+    context.canvas.drawVertices(
+        Vertices(VertexMode.triangleStrip, list), BlendMode.multiply, paint);
+  }
+
+  /// 绘制矩形
+  void drawRect(
+      PaintingContext context, Offset offset, Size size, Paint paint) {
+    context.canvas.drawRect(offset & size, paint);
+  }
+
+  /// 绘制五角星形状
+  void drawPentagram(PaintingContext context, Paint paint) {
     context.canvas.drawLine(Offset(100, 300), Offset(300, 300), paint);
     context.canvas.drawLine(Offset(300, 300), Offset(150, 400), paint);
     context.canvas.drawLine(Offset(150, 400), Offset(200, 200), paint);
