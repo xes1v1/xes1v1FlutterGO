@@ -51,19 +51,24 @@ class WQRenderObject extends RenderProxyBox {
     paint.color = color;
 
 //    context.canvas.drawCircle(offset, radius, paint);
-
-    context.canvas.drawLine(Offset(200, 200), Offset(100, 300), paint);
-    context.canvas.drawLine(Offset(200, 200), Offset(300, 300), paint);
-//    context.canvas.drawLine(Offset(200, 200), Offset(150, 400), paint);
-//    context.canvas.drawLine(Offset(200, 200), Offset(250, 400), paint);
-
-    context.canvas.drawLine(Offset(100, 300), Offset(150, 400), paint);
-    context.canvas.drawLine(Offset(150, 400), Offset(250, 400), paint);
-    context.canvas.drawLine(Offset(250, 400), Offset(300, 300), paint);
+//
+//    context.canvas.drawLine(Offset(200, 200), Offset(100, 300), paint);
+//    context.canvas.drawLine(Offset(200, 200), Offset(300, 300), paint);
+//    context.canvas.drawLine(Offset(250, 400), Offset(300, 300), paint);
+//    context.canvas.drawLine(Offset(150, 400), Offset(250, 400), paint);
+//    context.canvas.drawLine(Offset(100, 300), Offset(150, 400), paint);
 
 //    var size = Size(100, 100);
 //    var size = Size(width, height);
 //    context.canvas.drawRect(offset & size, paint);
+
+//    context.canvas.drawLine(Offset(200, 200), Offset(100, 300), paint);
+
+    context.canvas.drawLine(Offset(100, 300), Offset(300, 300), paint);
+    context.canvas.drawLine(Offset(300, 300), Offset(150, 400), paint);
+    context.canvas.drawLine(Offset(150, 400), Offset(200, 200), paint);
+    context.canvas.drawLine(Offset(200, 200), Offset(250, 400), paint);
+    context.canvas.drawLine(Offset(250, 400), Offset(100, 300), paint);
   }
 
   WQRenderObject(this.color, this.radius);
