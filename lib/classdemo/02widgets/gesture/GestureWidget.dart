@@ -30,24 +30,6 @@ class GestureWidget extends RenderObjectWidget {
       : super(key: key);
 }
 
-class TitleElement extends RenderObjectElement {
-  String title;
-
-  TitleElement(GestureWidget widget, this.title) : super(widget);
-
-  @override
-  void removeChildRenderObject(RenderObject child) {}
-
-  @override
-  void moveChildRenderObject(RenderObject child, dynamic slot) {}
-
-  @override
-  void insertChildRenderObject(RenderObject child, dynamic slot) {}
-
-  @override
-  void forgetChild(Element child) {}
-}
-
 class DogElement extends RenderObjectElement {
   List<Element> child;
 
