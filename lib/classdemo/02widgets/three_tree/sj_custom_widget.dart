@@ -50,23 +50,11 @@ class SjCustomRenderObject extends RenderProxyBox {
     paint.color = color;
     print("x:${offset.dx},Y:${offset.dy},size:${size.width},${size.height}");
     //Offset os = Offset(offset.dx + size.width / 2, offset.dy + size.height / 2);
-    Size s = new Size(width, height);
-    context.canvas.drawRect(offset & s, paint);
+    context.canvas.drawRect(offset & size, paint);
     //print("x:${os.dx},Y:${os.dy}");
-    super.paint(context, offset);
-  }
-
-  @override
-  void handleEvent(PointerEvent event, HitTestEntry entry) {
-    // TODO: implement handleEvent
-    super.handleEvent(event, entry);
-    print("SjCustomRenderObject 被点击了");
-  }
-
-  @override
-  bool hitTestSelf(Offset position) {
-    // TODO: implement hitTestSelf
-    return true;
+    if (child != null) {
+      context.paintChild(child, offset);
+    }
   }
 
   @override
@@ -80,10 +68,25 @@ class SjCustomRenderObject extends RenderProxyBox {
     if (child != null) {
       // constraints 这个约束是由parent传递过来
       size = constraints.constrain(new Size(width, height));
-      child.layout(constraints, parentUsesSize: false);
+      child.layout(constraints,
+          parentUsesSize: true); // parentUsesSize 为true是，表示父节点会在自节点重绘的时候，也会重绘
+//      size = child.size;
     } else {
       performResize();
     }
+  }
+
+  @override
+  void handleEvent(PointerEvent event, HitTestEntry entry) {
+    // TODO: implement handleEvent
+    super.handleEvent(event, entry);
+    print("SjCustomRenderObject 被点击了");
+  }
+
+  @override
+  bool hitTestSelf(Offset position) {
+    // TODO: implement hitTestSelf
+    return true;
   }
 
   SjCustomRenderObject(this.color, this.width, this.height);

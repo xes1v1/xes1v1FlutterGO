@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -144,8 +142,7 @@ import 'package:flutter/widgets.dart';
 ///
 
 class DogWidget extends RenderObjectWidget {
-
-  final Color color ;
+  final Color color;
   final double width;
   final double height;
 
@@ -160,8 +157,8 @@ class DogWidget extends RenderObjectWidget {
     return DogRenderObject(this.color, this.width, this.height);
   }
 
-  DogWidget({this.color = Colors.white, this.width = 10, this.height = 10, key}):super(key: key);
-
+  DogWidget({this.color = Colors.white, this.width = 10, this.height = 10, key})
+      : super(key: key);
 }
 
 class TitleElement extends RenderObjectElement {
@@ -170,9 +167,7 @@ class TitleElement extends RenderObjectElement {
   TitleElement(DogWidget widget, this.title) : super(widget);
 
   @override
-  void removeChildRenderObject(RenderObject child) {
-
-  }
+  void removeChildRenderObject(RenderObject child) {}
 
   @override
   void moveChildRenderObject(RenderObject child, dynamic slot) {}
@@ -212,7 +207,6 @@ class DogTitleRenderObject extends RenderProxyBox {
 }
 
 class DogRenderObject extends RenderProxyBox {
-
   Color color;
   double width;
   double height;
@@ -221,13 +215,10 @@ class DogRenderObject extends RenderProxyBox {
   void paint(PaintingContext context, Offset offset) {
     super.paint(context, offset);
 
-    var paint =  Paint();
+    var paint = Paint();
     paint.color = color;
-    var size = Size(width, height);
-    context.canvas.drawRect(offset & size, paint);
+    context.canvas.drawCircle(offset, 50, paint);
   }
-
-
 
   DogRenderObject(this.color, this.width, this.height);
 }

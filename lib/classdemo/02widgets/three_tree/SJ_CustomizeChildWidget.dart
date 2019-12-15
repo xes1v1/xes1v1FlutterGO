@@ -46,7 +46,8 @@ class SjCustomChildElement extends RenderObjectElement {
   void forgetChild(Element child) {}
 }
 
-class SjCustomChildRenderObject extends RenderProxyBox {
+class SjCustomChildRenderObject extends RenderProxyBox
+    with DebugOverflowIndicatorMixin {
   Color color;
   double width;
   double height;
@@ -55,26 +56,37 @@ class SjCustomChildRenderObject extends RenderProxyBox {
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    super.paint(context, offset);
-
-    print("SjCustomChildRenderObject:${drawSize.width},${drawSize.height}");
     print("dog Offset:${offset.dx},Y:${offset.dy}");
     var paint = Paint();
     paint.color = color;
-//    drawSize = Size(width, height);
     context.canvas.drawRect(offset & drawSize, paint);
+    assert(() {
+      final List<DiagnosticsNode> debugOverflowHints = <DiagnosticsNode>[
+        ErrorDescription("不符合规则"),
+      ];
+      Rect rect = Rect.fromLTWH(offset.dx, offset.dy, size.width, size.height);
+      paintOverflowIndicator(context, offset, offset & size, rect,
+          overflowHints: debugOverflowHints);
+      return true;
+    }());
   }
 
   @override
   void performResize() {
-    size = constraints.constrain(new Size(width, height));
-    drawSize = size;
+    if (drawSize == null) {
+      drawSize = constraints.constrain(new Size(width, height));
+    }
+    size = drawSize;
   }
 
   @override
   void performLayout() {
-    // TODO: implement performLayout
-    super.performLayout();
+    if (child != null) {
+      child.layout(constraints, parentUsesSize: true);
+      size = child.size;
+    } else {
+      performResize();
+    }
   }
 
 //  @protected
@@ -94,8 +106,8 @@ class SjCustomChildRenderObject extends RenderProxyBox {
     } else if (event is PointerUpEvent) {
       if (DateTime.now().millisecondsSinceEpoch - currentTime < 2000) {
         color = Color(0xFFFFFFFF & Random().nextInt(0xFFFFFFFF));
-        drawSize =
-            Size(Random().nextDouble() * 100, Random().nextDouble() * 100);
+//        drawSize =
+//            Size(Random().nextDouble() * 100, Random().nextDouble() * 100);
         print(
             "SjCustomChildRenderObject  paint:${drawSize.width},${drawSize.height}");
 

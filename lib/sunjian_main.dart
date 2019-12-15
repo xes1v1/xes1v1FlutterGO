@@ -31,8 +31,8 @@ class _SjAppState extends State<SjApp> {
 //        width: 200,
       child: SjCustomWidget(
           color: Colors.blueGrey,
-          height: 100,
-          width: 100,
+          height: 200,
+          width: 200,
           child:
 //            Text(
 //              "乌卡卡乌卡卡乌卡卡乌卡卡乌卡卡乌卡卡乌卡卡乌卡卡乌卡卡",
@@ -40,8 +40,8 @@ class _SjAppState extends State<SjApp> {
 //              textDirection: TextDirection.ltr,
 //            )
               SjCustomChildWidget(
-            width: 50,
-            height: 50,
+            width: 100,
+            height: 100,
           )),
 //      ),
     );
