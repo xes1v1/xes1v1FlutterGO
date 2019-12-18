@@ -11,6 +11,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(DemoKeys());
+}
+
 class DemoKeys extends StatefulWidget {
   DemoKeys({Key key}) : super(key: key);
 
