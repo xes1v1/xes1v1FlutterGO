@@ -52,14 +52,13 @@ class SjCustomChildRenderObject extends RenderProxyBox
   double width;
   double height;
   var currentTime = 0;
-  Size drawSize;
 
   @override
   void paint(PaintingContext context, Offset offset) {
     print("dog Offset:${offset.dx},Y:${offset.dy}");
     var paint = Paint();
     paint.color = color;
-    context.canvas.drawRect(offset & drawSize, paint);
+    context.canvas.drawRect(offset & size, paint);
     assert(() {
       final List<DiagnosticsNode> debugOverflowHints = <DiagnosticsNode>[
         ErrorDescription("不符合规则"),
@@ -73,28 +72,12 @@ class SjCustomChildRenderObject extends RenderProxyBox
 
   @override
   void performResize() {
-    if (drawSize == null) {
-      drawSize = constraints.constrain(new Size(width, height));
-    }
-    size = drawSize;
+    size = constraints.constrain(new Size(width, height));
   }
-
-  @override
-  void performLayout() {
-    if (child != null) {
-      child.layout(constraints, parentUsesSize: true);
-      size = child.size;
-    } else {
-      performResize();
-    }
-  }
-
-//  @protected
-//  bool get sizedByParent => true;
 
   @override
   bool hitTestSelf(Offset position) {
-    // TODO: implement hitTestSelf
+    print("pos:${position.dx},${position.dy}");
     return true;
   }
 
@@ -106,11 +89,6 @@ class SjCustomChildRenderObject extends RenderProxyBox
     } else if (event is PointerUpEvent) {
       if (DateTime.now().millisecondsSinceEpoch - currentTime < 2000) {
         color = Color(0xFFFFFFFF & Random().nextInt(0xFFFFFFFF));
-//        drawSize =
-//            Size(Random().nextDouble() * 100, Random().nextDouble() * 100);
-        print(
-            "SjCustomChildRenderObject  paint:${drawSize.width},${drawSize.height}");
-
         markNeedsLayout(); // 标记需要重新布局
         markNeedsPaint(); // 标记需要重绘
       }

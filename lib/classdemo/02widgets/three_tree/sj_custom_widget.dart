@@ -38,54 +38,64 @@ class SjCustomElement extends SingleChildRenderObjectElement {
   SjCustomElement(SjCustomWidget widget) : super(widget);
 }
 
-class SjCustomRenderObject extends RenderProxyBox {
+class SjCustomRenderObject extends RenderProxyBox
+    with DebugOverflowIndicatorMixin {
   Color color;
   double width;
   double height;
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    print("SjCustomRenderObject  paint");
     var paint = Paint();
     paint.color = color;
-    print("x:${offset.dx},Y:${offset.dy},size:${size.width},${size.height}");
-    //Offset os = Offset(offset.dx + size.width / 2, offset.dy + size.height / 2);
     context.canvas.drawRect(offset & size, paint);
-    //print("x:${os.dx},Y:${os.dy}");
     if (child != null) {
-      context.paintChild(child, offset);
+      //如果child节点不为空时，绘制子节点，在此处将子节点绘制的位置传递下去
+      //绘制孩子在中间展示 .
+      Offset os = Offset(offset.dx + (size.width - child.size.width) / 2,
+          offset.dy + (size.height - child.size.height) / 2);
+      context.paintChild(child, os);
     }
   }
 
   @override
   void performResize() {
+    // 该方法确定当前节点的绘制区域 。
+    //super.performResize();
     size = constraints.constrain(new Size(width, height));
   }
 
   @override
   void performLayout() {
-    //
     if (child != null) {
-      // constraints 这个约束是由parent传递过来
-      size = constraints.constrain(new Size(width, height));
-      child.layout(constraints,
-          parentUsesSize: true); // parentUsesSize 为true是，表示父节点会在自节点重绘的时候，也会重绘
-//      size = child.size;
+      // 如果子节点不为空，向子节点传递约束，并指定当前节点是否受子节点布局变化而变化。
+      // parentUsesSize为true表示受影响，false不受影响 。
+      child.layout(constraints, parentUsesSize: true);
+      size = child.size;
     } else {
-      performResize();
+      //performResize();
     }
+    performResize();
+  }
+
+  @override
+  bool hitTest(BoxHitTestResult result, {Offset position}) {
+    // 在该处也要处理点击事件的偏移量，
+    // 与绘制时给子的偏移量相反，如果不处理将导致事件处理异常
+    print("position---->${position.dx},${position.dy}");
+    Offset os = Offset(position.dx - (size.width - child.size.width) / 2,
+        position.dy - (size.height - child.size.height) / 2);
+    print("os---->${os.dx},${os.dy}");
+    return super.hitTest(result, position: os);
   }
 
   @override
   void handleEvent(PointerEvent event, HitTestEntry entry) {
-    // TODO: implement handleEvent
     super.handleEvent(event, entry);
-    print("SjCustomRenderObject 被点击了");
   }
 
   @override
   bool hitTestSelf(Offset position) {
-    // TODO: implement hitTestSelf
     return true;
   }
 
