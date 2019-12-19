@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 
 import 'classdemo/02widgets/three_tree/SJ_CustomizeChildWidget.dart';
 import 'classdemo/02widgets/three_tree/sj_custom_widget.dart';
+import 'homework/layout_paint/mx1_CustomChildWidget.dart';
+import 'homework/layout_paint/mx1_custom_widget.dart';
 
 void main() => runApp(SjApp());
 
@@ -27,11 +29,11 @@ class _SjAppState extends State<SjApp> {
     return Container(
       color: Colors.lime,
       child: Center(
-        child: SjCustomWidget(
+        child: MxcusWidget(
             color: Colors.blueGrey,
             height: 200,
             width: 200,
-            child: SjCustomChildWidget(
+            child: MxCustomChildWidget(
               width: 100,
               height: 100,
             )),
