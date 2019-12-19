@@ -1,16 +1,17 @@
 /*
  * Created with Android Studio.
- * User: sunjian
- * Date: 2019-12-07
- * Time: 11:32
- * target: TODO 添加本文件描述信息
+ * User: wangshuai
+ * Date: 2019-12-19
+ * Time: 18:27
+ * tartget: TODO 添加本文件描述信息
  */
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class SjCustomWidget extends SingleChildRenderObjectWidget {
+class WSCustomWidget extends SingleChildRenderObjectWidget {
   final Color color;
   final double width;
   final double height;
@@ -19,26 +20,26 @@ class SjCustomWidget extends SingleChildRenderObjectWidget {
   @override
   RenderObject createRenderObject(BuildContext context) {
     /// 创建容器里需要的绘制内容
-    return SjCustomRenderObject(this.color, this.width, this.height);
+    return WSCustomRenderObject(this.color, this.width, this.height);
   }
 
   @override
-  SingleChildRenderObjectElement createElement() => SjCustomElement(this);
+  SingleChildRenderObjectElement createElement() => WSCustomElement(this);
 
-  SjCustomWidget(
+  WSCustomWidget(
       {this.color = Colors.white,
-      this.width = 10,
-      this.height = 10,
-      key,
-      this.child})
+        this.width = 10,
+        this.height = 10,
+        key,
+        this.child})
       : super(key: key, child: child);
 }
 
-class SjCustomElement extends SingleChildRenderObjectElement {
-  SjCustomElement(SjCustomWidget widget) : super(widget);
+class WSCustomElement extends SingleChildRenderObjectElement {
+  WSCustomElement(WSCustomWidget widget) : super(widget);
 }
 
-class SjCustomRenderObject extends RenderProxyBox
+class WSCustomRenderObject extends RenderProxyBox
     with DebugOverflowIndicatorMixin {
   Color color;
   double width;
@@ -50,8 +51,6 @@ class SjCustomRenderObject extends RenderProxyBox
     paint.color = color;
     context.canvas.drawRect(offset & size, paint);
     if (child != null) {
-      //如果child节点不为空时，绘制子节点，在此处将子节点绘制的位置传递下去
-      //绘制孩子在中间展示 .
       Offset os = Offset(offset.dx + (size.width - child.size.width) / 2,
           offset.dy + (size.height - child.size.height) / 2);
       context.paintChild(child, os);
@@ -60,8 +59,6 @@ class SjCustomRenderObject extends RenderProxyBox
 
   @override
   void performResize() {
-    // 该方法确定当前节点的绘制区域 。
-    //super.performResize();
     size = constraints.constrain(new Size(width, height));
   }
 
@@ -70,8 +67,8 @@ class SjCustomRenderObject extends RenderProxyBox
     if (child != null) {
       // 如果子节点不为空，向子节点传递约束，并指定当前节点是否受子节点布局变化而变化。
       // parentUsesSize为true表示受影响，false不受影响 。
-      child.layout(constraints, parentUsesSize: false);
-      //size = child.size;
+      child.layout(constraints, parentUsesSize: true);
+      size = child.size;
     } else {
       //performResize();
     }
@@ -99,5 +96,5 @@ class SjCustomRenderObject extends RenderProxyBox
     return true;
   }
 
-  SjCustomRenderObject(this.color, this.width, this.height);
+  WSCustomRenderObject(this.color, this.width, this.height);
 }
