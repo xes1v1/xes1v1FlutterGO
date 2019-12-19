@@ -70,8 +70,8 @@ class SjCustomRenderObject extends RenderProxyBox
     if (child != null) {
       // 如果子节点不为空，向子节点传递约束，并指定当前节点是否受子节点布局变化而变化。
       // parentUsesSize为true表示受影响，false不受影响 。
-      child.layout(constraints, parentUsesSize: true);
-      size = child.size;
+      child.layout(constraints, parentUsesSize: false);
+      //size = child.size;
     } else {
       //performResize();
     }
