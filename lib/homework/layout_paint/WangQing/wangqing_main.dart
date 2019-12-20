@@ -7,33 +7,29 @@
  */
 import 'package:flutter/material.dart';
 
-import 'classdemo/02widgets/three_tree/SJ_CustomizeChildWidget.dart';
-import 'classdemo/02widgets/three_tree/sj_custom_widget.dart';
-import 'homework/layout_paint/mx1_CustomChildWidget.dart';
-import 'homework/layout_paint/mx1_custom_widget.dart';
+import 'WQCustomWidget.dart';
+import 'WQCustomizeChildWidget.dart';
 
-void main() => runApp(SjApp());
+void main() => runApp(WQApp());
 
-class SjApp extends StatefulWidget {
+class WQApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _SjAppState();
+    return _WQAppState();
   }
 }
 
-class _SjAppState extends State<SjApp> {
+class _WQAppState extends State<WQApp> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       color: Colors.lime,
       child: Center(
-        child: MxcusWidget(
+        child: WQCustomWidget(
             color: Colors.blueGrey,
             height: 200,
             width: 200,
-            child: MxCustomChildWidget(
+            child: WQCustomChildWidget(
               width: 100,
               height: 100,
             )),
