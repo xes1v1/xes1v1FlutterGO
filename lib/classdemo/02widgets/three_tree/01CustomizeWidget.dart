@@ -217,7 +217,12 @@ class DogRenderObject extends RenderProxyBox {
 
     var paint = Paint();
     paint.color = color;
-    context.canvas.drawCircle(offset, 50, paint);
+    context.canvas.drawRect(offset & size , paint);
+  }
+
+  @override
+  void performResize() {
+    size = constraints.constrain(new Size(width, height));
   }
 
   DogRenderObject(this.color, this.width, this.height);

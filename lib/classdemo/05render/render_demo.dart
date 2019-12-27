@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:ui' as prefix0;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/classdemo/02widgets/three_tree/01CustomizeWidget.dart';
@@ -88,7 +91,7 @@ import 'dart:ui';
 ///  |
 ///   [RenderListWheelViewport]  ===> [ListWheelViewport] widget
 ///
-///   isRepaintBoundary = true 时， 将首先停掉上一个layer 并且生成 P
+///   isRepaintBoundary = true 时， 将首先停掉上一个layer 并且生成 Picture
 ///
 ///   细节详见 [PaintingContext] paintChild()  关键内容
 ///  if (child.isRepaintBoundary) {
@@ -107,73 +110,80 @@ import 'dart:ui';
 ///
 
 //void main() => runApp(DogApp());
-//
-//void main(){
-//
-//  // dart ui
-//  // https://api.flutter.dev/flutter/dart-ui/dart-ui-library.html
+
+//简单
+//void main() {
 //  PictureRecorder recorder = PictureRecorder();
 //  Canvas canvas = Canvas(recorder);
 //
 //  Paint p = Paint();
 //  p.strokeWidth = 30.0;
-//  p.color = Color(0xFFFF00FF);
-//
-//  canvas.drawLine(Offset(300, 300), Offset(800, 800), p);
-//  // 解释，为什么在统一图层，
-//  p.color = Color(0xFFFF0000);
-//  canvas.drawRect(Rect.fromLTRB(400, 400, 100, 100), p);
+//  p.color = Color(0xFFFFFFFF);
+//  canvas.drawRect(Rect.fromLTRB(400, 400, 50, 50), p);
 //
 //  Picture picture = recorder.endRecording();
-//
 //  SceneBuilder sceneBuilder = SceneBuilder();
 //  sceneBuilder.pushOffset(0, 0);
-//  sceneBuilder.addPicture(new Offset(0, 0), picture);
-//  sceneBuilder.pop();
-//  Scene scene = sceneBuilder.build();
 //
-//  window.onDrawFrame = (){
+//  window.onDrawFrame = () {
+//
+//    double width = (window.physicalSize.width - 400) / 2;
+//    double height = (window.physicalSize.height - 350) / 2;
+//
+//    sceneBuilder.addPicture(new Offset(width, height), picture);
+//    sceneBuilder.pop();
+//    Scene scene = sceneBuilder.build();
 //    window.render(scene);
+//    scene.dispose();
 //  };
 //  window.scheduleFrame();
 //}
-
-void main(){
-
+//  条形码扫描
+void main() {
   PictureRecorder recorder = PictureRecorder();
   Canvas canvas = Canvas(recorder);
 
   Paint p = Paint();
   p.strokeWidth = 30.0;
-  p.color = Color(0xFFFF00FF);
+  p.color = Color(0xFFFFFFFF);
+  canvas.drawRect(Rect.fromLTRB(400, 400, 50, 50), p);
 
-  canvas.drawLine(Offset(300, 300), Offset(800, 800), p);
-  canvas.drawLine(Offset(800, 300), Offset(300, 800), p);
+  Picture picture =  recorder.endRecording();
 
-  Picture picCross = recorder.endRecording();
+  double width = (window.physicalSize.width - 400) / 2;
+  double height = (window.physicalSize.height - 350) / 2;
+  double gaph = 0;
 
-  window.onDrawFrame = (){
+  int gap = 10;
 
-    int i = DateTime.now().millisecond;
 
-    PictureRecorder recorder = PictureRecorder();
-    Canvas canvas = Canvas(recorder);
-    canvas.drawLine(Offset(i*0.2, 550), Offset(1080-i*0.2, 550), p);
-
-    Picture picLine = recorder.endRecording();
+  window.onDrawFrame = () {
 
     SceneBuilder sceneBuilder = SceneBuilder();
     sceneBuilder.pushOffset(0, 0);
     sceneBuilder.pushOpacity(128);
-    sceneBuilder.addPicture(new Offset(0, 0), picCross);
-    sceneBuilder.pop();
-    sceneBuilder.pushOffset(0, 0.5*(i-500));
-    sceneBuilder.addPicture(new Offset(0, 0), picLine);
-    sceneBuilder.pop();
+    sceneBuilder.addPicture(new Offset(width, height), picture);
     sceneBuilder.pop();
 
+    // 加根线
+    PictureRecorder recorder = PictureRecorder();
+    Canvas canvas = Canvas(recorder);
+    p.color = Color(0xFFFF00FF);
+
+    canvas.drawLine(Offset(420, 40), Offset(20, 40), p);
+    Picture picLine = recorder.endRecording();
+
+    if (gaph >  350 ) {
+      gaph = 0;
+    }
+    gaph += gap;
+
+    sceneBuilder.pushOffset(0, gaph);
+    sceneBuilder.addPicture(new Offset(width, height), picLine);
+    sceneBuilder.pop();
+
+    // 绘制
     Scene scene = sceneBuilder.build();
-
     window.render(scene);
     scene.dispose();
 
@@ -181,7 +191,6 @@ void main(){
   };
   window.scheduleFrame();
 }
-
 
 class DogApp extends StatefulWidget {
   @override
@@ -207,15 +216,9 @@ class _DogAppState extends State<DogApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return new Center(
-      child: Container(
-          width: 200,
-          height: 200,
-          color: Colors.lightBlue,
-          child: DogWidget(
-            key: UniqueKey(),
-            width: 100,
-            height: 100,
-          )),
-    );
+        child: DogWidget(
+      width: 200,
+      height: 200,
+    ));
   }
 }
