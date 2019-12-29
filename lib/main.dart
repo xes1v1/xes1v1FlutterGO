@@ -3,10 +3,10 @@ import 'package:flutter_app/classdemo/02widgets/three_tree/01CustomizeWidget.dar
 import 'package:flutter_app/sunjian_main.dart';
 
 import 'classdemo/02widgets/gesture/GestureWidget.dart';
-import 'homework/Key/MX1KeyTest.dart';
-
+import 'classdemo/05render/Mx1render.dart';
 void main() {
-  return runApp(SjApp());
+   Mxmain();
+//  return runApp(SjApp());
 }
 
 class DogApp extends StatefulWidget {
