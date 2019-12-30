@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/classdemo/02widgets/three_tree/01CustomizeWidget.dart';
 import 'package:flutter_app/sunjian_main.dart';
-
 import 'classdemo/02widgets/gesture/GestureWidget.dart';
-import 'classdemo/05render/Mx1render.dart';
 void main() {
-   Mxmain();
-//  return runApp(SjApp());
+  return runApp(SjApp());
 }
 
 class DogApp extends StatefulWidget {
