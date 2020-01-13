@@ -64,7 +64,23 @@ class RectCustomRenderObject extends RenderProxyBox with DebugOverflowIndicatorM
   }
 
   @override
+  bool hitTestChildren(BoxHitTestResult result, {Offset position}) {
+    // TODO: implement hitTestChildren
+    print("position---->${position.dx},${position.dy}");
+    Offset os = Offset(position.dx - (size.width - child.size.width) / 2,
+        position.dy - (size.height - child.size.height) / 2);
+    print("os---->${os.dx},${os.dy}");
+    return super.hitTestChildren(result, position: os);
+  }
+
+  @override
+  void handleEvent(PointerEvent event, HitTestEntry entry) {
+    super.handleEvent(event, entry);
+    print("RectCustomWidget ==> handleEvent()");
+  }
+
+  @override
   bool hitTestSelf(Offset position) {
-    return true;
+    return super.hitTestSelf(position);
   }
 }
