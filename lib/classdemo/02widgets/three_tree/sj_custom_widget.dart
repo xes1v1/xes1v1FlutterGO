@@ -45,6 +45,36 @@ class SjCustomRenderObject extends RenderProxyBox
   double height;
 
   @override
+  bool hitTest(BoxHitTestResult result, {Offset position}) {
+    // TODO: implement hitTest
+    return super.hitTest(result, position: position);
+  }
+
+  @override
+  bool hitTestChildren(BoxHitTestResult result, {Offset position}) {
+// 在该处也要处理点击事件的偏移量，
+    // 与绘制时给子的偏移量相反，如果不处理将导致事件处理异常
+    print("position---->${position.dx},${position.dy}");
+    Offset os = Offset(position.dx - (size.width - child.size.width) / 2,
+        position.dy - (size.height - child.size.height) / 2);
+    print("os---->${os.dx},${os.dy}");
+    return super.hitTestChildren(result, position: os);
+  }
+
+  @override
+  void handleEvent(PointerEvent event, HitTestEntry entry) {
+    super.handleEvent(event, entry);
+    print("SjCustomRenderObject----handleEvent");
+  }
+
+  @override
+  bool hitTestSelf(Offset position) {
+    return super.hitTestSelf(position);
+  }
+
+  SjCustomRenderObject(this.color, this.width, this.height);
+
+  @override
   void paint(PaintingContext context, Offset offset) {
     var paint = Paint();
     paint.color = color;
@@ -77,27 +107,4 @@ class SjCustomRenderObject extends RenderProxyBox
     }
     performResize();
   }
-
-  @override
-  bool hitTest(BoxHitTestResult result, {Offset position}) {
-    // 在该处也要处理点击事件的偏移量，
-    // 与绘制时给子的偏移量相反，如果不处理将导致事件处理异常
-    print("position---->${position.dx},${position.dy}");
-    Offset os = Offset(position.dx - (size.width - child.size.width) / 2,
-        position.dy - (size.height - child.size.height) / 2);
-    print("os---->${os.dx},${os.dy}");
-    return super.hitTest(result, position: os);
-  }
-
-  @override
-  void handleEvent(PointerEvent event, HitTestEntry entry) {
-    super.handleEvent(event, entry);
-  }
-
-  @override
-  bool hitTestSelf(Offset position) {
-    return true;
-  }
-
-  SjCustomRenderObject(this.color, this.width, this.height);
 }

@@ -84,7 +84,7 @@ class DogTitleRenderObject extends RenderProxyBox {
 ///3、GestureBinding.instance.pointerRouter.addRoute(pointer, handleEvent, transform);添加到事件路由内
 ///这个的handleEvent就是当前手势里的handleEvent方法.
 ///4、GestureBinding.instance.gestureArena.add(pointer, this)，添加到事件竞技场内,会将GestureRecognizerState赋值为ready
-///新产生一个_GestureArena，并存储GestureArenaManager的_arenas里，会将当前手势对象天到_GestureArena里维护的一个List内
+///新产生一个_GestureArena，并存储GestureArenaManager的_arenas里， 会将当前手势对象天到_GestureArena里维护的一个List内
 ///5、按下的最后一步会执行GestureBinding内的handleEvent
 ///pointerRouter.route(event),遍历执行所有注册手势的handleEvent方法再次会判断当前动作是否符合该手势，
 ///如果不符合会将手势状态标记会拒绝，并从事件竞技场内删除，从路由事件集合内删除

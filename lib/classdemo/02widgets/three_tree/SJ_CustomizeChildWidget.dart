@@ -54,6 +54,27 @@ class SjCustomChildRenderObject extends RenderProxyBox
   var currentTime = 0;
 
   @override
+  bool hitTestSelf(Offset position) {
+    print("pos:${position.dx},${position.dy}");
+    return true;
+  }
+
+  @override
+  void handleEvent(PointerEvent event, HitTestEntry entry) {
+    // TODO: implement handleEvent
+    if (event is PointerDownEvent) {
+      currentTime = new DateTime.now().millisecondsSinceEpoch;
+    } else if (event is PointerUpEvent) {
+      if (DateTime.now().millisecondsSinceEpoch - currentTime < 2000) {
+        color = Color(0xFFFFFFFF & Random().nextInt(0xFFFFFFFF));
+        markNeedsLayout(); // 标记需要重新布局
+        markNeedsPaint(); // 标记需要重绘
+      }
+    }
+    print("SjCustomChildRenderObject 被触摸了");
+  }
+
+  @override
   void paint(PaintingContext context, Offset offset) {
     print("dog Offset:${offset.dx},Y:${offset.dy}");
     var paint = Paint();
@@ -73,27 +94,6 @@ class SjCustomChildRenderObject extends RenderProxyBox
   @override
   void performResize() {
     size = constraints.constrain(new Size(width, height));
-  }
-
-  @override
-  bool hitTestSelf(Offset position) {
-    print("pos:${position.dx},${position.dy}");
-    return true;
-  }
-
-  @override
-  void handleEvent(PointerEvent event, HitTestEntry entry) {
-    // TODO: implement handleEvent
-    if (event is PointerDownEvent) {
-      currentTime = new DateTime.now().millisecondsSinceEpoch;
-    } else if (event is PointerUpEvent) {
-      if (DateTime.now().millisecondsSinceEpoch - currentTime < 2000) {
-        color = Color(0xFFFFFFFF & Random().nextInt(0xFFFFFFFF));
-        markNeedsLayout(); // 标记需要重新布局
-        markNeedsPaint(); // 标记需要重绘
-      }
-    }
-    print("SjCustomChildRenderObject 被触摸了");
   }
 
   SjCustomChildRenderObject(this.color, this.width, this.height);
